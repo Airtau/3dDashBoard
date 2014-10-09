@@ -1,0 +1,2 @@
+The original file, on wich all *.3ds files in this folder are based on comes from:
+http://www.3delicious.net/index.php?a=detail&id=33449
