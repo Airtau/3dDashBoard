@@ -4,39 +4,16 @@
         <file>Components/Gauges.qml</file>
         <file>Components/Car3D.qml</file>
         <file>Components/Button.qml</file>
-        <file>Meshes/Car3D/car-missing__4door-4wheels-2glass-4headlights.3ds</file>
-        <file>Meshes/Car3D/door-left-front.3ds</file>
-        <file>Meshes/Car3D/door-left-rear.3ds</file>
-        <file>Meshes/Car3D/door-right-front.3ds</file>
-        <file>Meshes/Car3D/door-right-rear.3ds</file>
-        <file>Meshes/Car3D/glass-back.3ds</file>
-        <file>Meshes/Car3D/glass-front.3ds</file>
-        <file>Meshes/Car3D/glass-left-front.3ds</file>
-        <file>Meshes/Car3D/glass-left-rear-big.3ds</file>
-        <file>Meshes/Car3D/glass-left-rear-small.3ds</file>
-        <file>Meshes/Car3D/glass-right-front.3ds</file>
-        <file>Meshes/Car3D/glass-right-rear-big.3ds</file>
-        <file>Meshes/Car3D/glass-right-rear-small.3ds</file>
-        <file>Meshes/Car3D/headlight_glass-left-back.3ds</file>
-        <file>Meshes/Car3D/headlight_glass-left-front.3ds</file>
-        <file>Meshes/Car3D/headlight_glass-right-back.3ds</file>
-        <file>Meshes/Car3D/headlight_glass-right-front.3ds</file>
-        <file>Meshes/Car3D/headlight-left-back.3ds</file>
-        <file>Meshes/Car3D/headlight-left-front.3ds</file>
-        <file>Meshes/Car3D/headlight-right-back.3ds</file>
-        <file>Meshes/Car3D/headlight-right-front.3ds</file>
-        <file>Meshes/Car3D/wheel-left-back.3ds</file>
-        <file>Meshes/Car3D/wheel-left-front.3ds</file>
-        <file>Meshes/Car3D/wheel-right-back.3ds</file>
-        <file>Meshes/Car3D/wheel-right-front.3ds</file>
         <file>Meshes/Car3D/Meshes.qml</file>
         <file>Meshes/Gauges/dashboard.3ds</file>
-        <file>Meshes/Gauges/Meshes.qml</file>
         <file>Components/Car3DView.qml</file>
         <file>Components/DashbdView.qml</file>
         <file>Icons/Icons.qml</file>
         <file>Components/Indlamps.qml</file>
         <file>Components/SimpleSlider.qml</file>
-        <file>Meshes/Gauges/needle.3ds</file>
+        <file>Meshes/Car3D/carBody.3ds</file>
+        <file>Meshes/Car3D/carParts.3ds</file>
+        <file>Meshes/Gauges/Meshes.qml</file>
+        <file>Meshes/Car3D/carWhell.3ds</file>
     </qresource>
 </RCC>

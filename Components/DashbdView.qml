@@ -46,7 +46,6 @@ Viewport {
         enabled: false
         Sphere {
             effect: Effect {
-            //    color: dbLight.diffuseColor
                 useLighting: true
             }
         }

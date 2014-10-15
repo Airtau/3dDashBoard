@@ -1,39 +1,14 @@
-/****************************************************************************
-
-This file is part of the Car3D project on http://www.gitorious.org.
-
-Copyright (c) 2009 Nokia Corporation and/or its subsidiary(-ies).*
-All rights reserved.
-
-Contact:  Nokia Corporation (qt-info@nokia.com)**
-
-You may use this file under the terms of the BSD license as follows:
-
-"Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* Neither the name of Nokia Corporation and its Subsidiary(-ies) nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-
-****************************************************************************/
-
 import QtQuick 2.3
 import Qt3D 2.0
 import "../Meshes/Car3D"
 
-// NOTE
-// try to avoid doing translate (and rotate only around 0,0,0) on this item! .. it might break other animations
-
-
 Item3D {
     id: rootCar
-    pretransform: Translation3D{ translate: Qt.vector3d(0.76, -1.44, -0.02) } // move center of car (between driver and shotgun) to center of world (0,0,0)
 
-
-    property real leftFrontGlassOpeningDegree:  0.0
-    property real rightFrontGlassOpeningDegree: 0.0
-    property real leftRearGlassOpeningDegree:   0.0
-    property real rightRearGlassOpeningDegree:  0.0
+    property real lF_GlassOpening:  0.0
+    property real rF_GlassOpening: 0.0
+    property real lR_GlassOpening:   0.0
+    property real rR_GlassOpening:  0.0
 
 
     // ------------------ Functions
@@ -95,55 +70,124 @@ Item3D {
     // ------------------ Meshes ------------------
     Meshes { id: meshes }
 
-    Item3D { mesh: meshes.carCoreMesh; }
-
-    Item3D { mesh: meshes.door_left_front;                                      transform: leftFrontDoorRotation  }
-    Item3D { mesh: meshes.door_left_rear;                                       transform: leftRearDoorRotation   }
-    Item3D { mesh: meshes.door_right_front;                                     transform: rightFrontDoorRotation }
-    Item3D { mesh: meshes.door_right_rear;                                      transform: rightRearDoorRotation  }
-
-    Item3D { mesh: meshes.glass_back;                   effect: glass; }
-    Item3D { mesh: meshes.glass_front;                  effect: glass; }
-    Item3D { mesh: meshes.glass_left_front;             effect: glass;          transform: [leftFrontDoorRotation, leftFrontGlassOpeningTranslation]  }
-    Item3D { mesh: meshes.glass_left_rear_big;          effect: glass;          transform: [leftRearDoorRotation, leftRearGlassOpeningTranslation]   }
-    Item3D { mesh: meshes.glass_left_rear_small;        effect: glass;          transform: leftRearDoorRotation   }
-    Item3D { mesh: meshes.glass_right_front;            effect: glass;          transform: [rightFrontDoorRotation, rightFrontGlassOpeningTranslation] }
-    Item3D { mesh: meshes.glass_right_rear_big;         effect: glass;          transform: [rightRearDoorRotation, rightRearGlassOpeningTranslation]  }
-    Item3D { mesh: meshes.glass_right_rear_small;       effect: glass;          transform: rightRearDoorRotation  }
 
 
-    Item3D { mesh: meshes.headlight_left_back; }
-    Item3D { mesh: meshes.headlight_left_front; }
-    Item3D { mesh: meshes.headlight_right_back; }
-    Item3D { mesh: meshes.headlight_right_front; }
-    Item3D { mesh: meshes.headlight_glass_left_back;    effect: glass; }
-    Item3D { mesh: meshes.headlight_glass_left_front;   effect: glass; }
-    Item3D { mesh: meshes.headlight_glass_right_back;   effect: glass; }
-    Item3D { mesh: meshes.headlight_glass_right_front;  effect: glass; }
+    Item3D { mesh: meshes.carBodyMesh;}
 
-    Item3D { mesh: meshes.wheel_left_back; Item3D {id: wlr; meshNode: "Mesh1_whee";} transform: leftRearWheelPulse}
-    Item3D { mesh: meshes.wheel_left_front; Item3D {id: wlf; meshNode: "Mesh9_whee";} transform: leftFrontWheelPulse}
-    Item3D { mesh: meshes.wheel_right_back; Item3D {id: wrr; meshNode: "Mesh5_whee";} transform: rightRearWheelPulse}
-    Item3D { mesh: meshes.wheel_right_front; Item3D {id: wrf; meshNode: "Mesh13";} transform: rightFrontWheelPulse}
+    Item3D {
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_LF::reflect";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_LF::vehiclelight";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_LF::orange";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_LF::HLFglass"; effect: hL_glass;}
 
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_RF::reflect";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_RF::vehiclelight";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_RF::orange";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_RF::HLFglass"; effect: hL_glass;}
+
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_LRB::red";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_LRB::white";}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_LRB::HLRglass"; effect: hL_glass;}
+
+
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_RRB::red"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_RRB::white"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_RRB::HLRglass"; effect: hL_glass;}
+        pretransform: [meshes.setToBodyAxis]
+    }
+
+
+
+    Item3D { mesh: meshes.carPartsMesh; meshNode: "Interior::interior"; pretransform: [meshes.setToBodyAxis];}
+    Item3D { mesh: meshes.carPartsMesh; meshNode: "Cowl::body"; pretransform: [meshes.setToBodyAxis];}
+    Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_F::WinGlass"; pretransform: [meshes.setToBodyAxis]; effect: glass;}
+    Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_R::WinGlass"; pretransform: [meshes.setToBodyAxis]; effect: glass;}
+
+
+    Item3D { Item3D { mesh: meshes.carPartsMesh; meshNode: "Trunk::body"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Trunk::red"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Trunk::white"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_LRT::HLRglass"; effect: hL_glass}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "HL_Glass_RRT::HLRglass"; effect: hL_glass}
+        pretransform: [meshes.setToBodyAxis]}
+
+
+
+    Item3D { Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LF::body"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LF::interior"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LF::door_bezel"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_LF::WinGlass";
+            transform: [lF_GlassOpeningTranslation]; effect: glass;}
+        transform: [leftFrontDoorRotation]; pretransform: [meshes.setToBodyAxis]}
+
+
+    Item3D { Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RF::body"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RF::interior"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RF::door_bezel"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_RF::WinGlass";
+            transform: [rF_GlassOpeningTranslation]; effect: glass;}
+        transform: [rightFrontDoorRotation]; pretransform: [meshes.setToBodyAxis]}
+
+    Item3D { Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LR::body"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LR::interior"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_LR::door_bezel"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_LRS::WinGlass"; effect: glass}
+        Item3D {mesh: meshes.carPartsMesh; meshNode: "Glass_LRB::WinGlass";
+            transform: [lR_GlassOpeningTranslation]; effect: glass;}
+        transform: [leftRearDoorRotation]; pretransform: [meshes.setToBodyAxis]}
+
+    Item3D { Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RR::body"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RR::interior"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Door_RR::door_bezel"}
+        Item3D { mesh: meshes.carPartsMesh; meshNode: "Glass_RRS::WinGlass"; effect: glass}
+        Item3D {mesh: meshes.carPartsMesh; meshNode: "Glass_RRB::WinGlass";
+            transform: [rR_GlassOpeningTranslation]; effect: glass;}
+        transform: [rightRearDoorRotation]; pretransform: [meshes.setToBodyAxis]}
+
+    Item3D {mesh: meshes.wheelLF; meshNode: "Wheel::disk";
+        pretransform: [Rotation3D { angle: 90; axis: meshes.leftWheelAxis}, Translation3D{translate: meshes.leftFrontWheelCenter}]
+        transform: leftFrontWheelPulse
+        Item3D {id: wlf; mesh: meshes.wheelLF; meshNode: "Wheel::ture"}
+        }
+
+    Item3D {mesh: meshes.wheelRF; meshNode: "Wheel::disk";
+        pretransform: [Rotation3D { angle: 90; axis: meshes.rightWheelAxis}, Translation3D{translate: meshes.rightFrontWheelCenter}]
+        transform: rightFrontWheelPulse
+        Item3D {id: wrf; mesh: meshes.wheelRF; meshNode: "Wheel::ture"}
+        }
+
+    Item3D {mesh: meshes.wheelLR; meshNode: "Wheel::disk";
+        pretransform: [Rotation3D { angle: 90; axis: meshes.leftWheelAxis}, Translation3D{translate: meshes.leftRearWheelCenter}]
+        transform: leftRearWheelPulse
+        Item3D {id: wlr; mesh: meshes.wheelLR; meshNode: "Wheel::ture"}
+        }
+
+    Item3D {mesh: meshes.wheelRR; meshNode: "Wheel::disk";
+        pretransform: [Rotation3D { angle: 90; axis: meshes.rightWheelAxis}, Translation3D{translate: meshes.rightRearWheelCenter}]
+        transform: rightRearWheelPulse
+        Item3D {id: wrr; mesh: meshes.wheelRR; meshNode: "Wheel::ture"}
+        }
 
     // ------------------ Effects ------------------
     Effect {
         id: glass
         blending: true;
-        color: Qt.rgba(0.1, 0.1, 0.4, 0.3)
+        color: Qt.rgba(0.0, 155, 200, 0.3)
     }
 
+    Effect {
+        id: hL_glass
+        blending: true;
+        color: Qt.rgba(0.0, 0.01, 0.02, 0.1)
+    }
 
     Effect {
         id: none
-        blending: false;
         color: Qt.rgba(0.5, 0.5, 0.5, 1.0)
     }
 
     Effect {
         id: warming
-        blending: false;
         color: Qt.rgba(255, 0.1, 0.1, 0.8)
     }
 
@@ -152,7 +196,7 @@ Item3D {
         id: leftFrontDoorRotation
         angle: 0
         axis: Qt.vector3d(0, 1, 0)
-        origin: meshes.leftFrontDoorMountingVector3D
+        origin: meshes.lFDoorRotationVector
     }
     SequentialAnimation { id: leftFrontDoorRotationAnimation; loops: Animation.Infinite; alwaysRunToEnd: true
         NumberAnimation { target: leftFrontDoorRotation; property: "angle"; from: 0; to : -30.0; duration: 1000; easing.type: Easing.OutBounce}
@@ -162,7 +206,7 @@ Item3D {
         id: leftRearDoorRotation
         angle: 0
         axis: Qt.vector3d(0, 1, 0)
-        origin: meshes.leftBackDoorMountingVector3D
+        origin: meshes.lRDoorRotationVector
     }
     SequentialAnimation { id: leftRearDoorRotationAnimation; loops: Animation.Infinite; alwaysRunToEnd: true
         NumberAnimation { target: leftRearDoorRotation; property: "angle"; from: 0; to : -30.0; duration: 1000; easing.type: Easing.OutBounce}
@@ -172,7 +216,7 @@ Item3D {
         id: rightFrontDoorRotation
         angle: 0
         axis: Qt.vector3d(0, 1, 0)
-        origin: meshes.rightFrontDoorMountingVector3D
+        origin: meshes.rFDoorRotationVector
     }
     SequentialAnimation { id: rightFrontDoorRotationAnimation; loops: Animation.Infinite; alwaysRunToEnd: true
         NumberAnimation { target: rightFrontDoorRotation; property: "angle"; from: 0; to : 30.0; duration: 1000; easing.type: Easing.OutBounce}
@@ -182,7 +226,7 @@ Item3D {
         id: rightRearDoorRotation
         angle: 0
         axis: Qt.vector3d(0, 1, 0)
-        origin: meshes.rightRearDoorMountingVector3D
+        origin: meshes.rRDoorRotationVector
     }
     SequentialAnimation { id: rightRearDoorRotationAnimation; loops: Animation.Infinite; alwaysRunToEnd: true
         NumberAnimation { target: rightRearDoorRotation; property: "angle"; from: 0; to : 30.0; duration: 1000; easing.type: Easing.OutBounce}
@@ -230,8 +274,8 @@ Item3D {
         NumberAnimation { target: rightRearWheelPulse; property: "scale"; from: 0.9;  to: 1.0;  duration: 200;}    }
 
 
-    Translation3D {id: leftFrontGlassOpeningTranslation;  translate: Qt.vector3d(0, -1*leftFrontGlassOpeningDegree, 0) }
-    Translation3D {id: rightFrontGlassOpeningTranslation; translate: Qt.vector3d(0, -1*rightFrontGlassOpeningDegree, 0) }
-    Translation3D {id: leftRearGlassOpeningTranslation;   translate: Qt.vector3d(0, -1*leftRearGlassOpeningDegree, 0) }
-    Translation3D {id: rightRearGlassOpeningTranslation;  translate: Qt.vector3d(0, -1*rightRearGlassOpeningDegree, 0) }
+    Translation3D {id: lF_GlassOpeningTranslation; progress: 0.5 ; translate: Qt.vector3d(0, -1*lF_GlassOpening, 0)}
+    Translation3D {id: rF_GlassOpeningTranslation; progress: 0.5 ; translate: Qt.vector3d(0, -1*rF_GlassOpening, 0)}
+    Translation3D {id: lR_GlassOpeningTranslation; progress: 0.5 ; translate: Qt.vector3d(0, -1*lR_GlassOpening, 0)}
+    Translation3D {id: rR_GlassOpeningTranslation; progress: 0.5 ; translate: Qt.vector3d(0, -1*rR_GlassOpening, 0)}
 }

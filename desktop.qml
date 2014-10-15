@@ -17,10 +17,11 @@ Window {
         property real buttonWith: parent.width/9
         property real buttonHeight: 30
 
-        DashbdView {id: dashView
-            dash.rotateSpeedAngle: speedSlider.value
-            dash.rotateTachoAngle: tachoSlider.value
-        }
+//        DashbdView {id: dashView
+//            dash.rotateSpeedAngle: speedSlider.value
+//            dash.rotateTachoAngle: tachoSlider.value
+//        }
+
         Car3DView {id: carView}
 
         Row {
@@ -132,8 +133,8 @@ Window {
 
         }
 
-        SimpleSlider { id: speedSlider ;x: 0;y: 20}
-        SimpleSlider { id: tachoSlider ;x: 1180;y: 20}
+        SimpleSlider { id: speedSlider ;x: 0;y: 50}
+        SimpleSlider { id: tachoSlider ;x: 1180;y: 50}
 
     }
 }

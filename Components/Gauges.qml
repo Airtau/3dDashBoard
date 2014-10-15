@@ -42,10 +42,10 @@ Item3D {
         light: spLight
     }
 
-    Item3D {id: needleSpeed; mesh: meshes.needleMesh;
-        position: meshes.speedDisplayPosition;
-        transform: [needleSpeedRotate, rotateSpeedDisplay]
-    }
+//    Item3D {id: needleSpeed; mesh: meshes.needleMesh;
+//        position: meshes.speedDisplayPosition;
+//        transform: [needleSpeedRotate, rotateSpeedDisplay]
+//    }
 
     Item3D {mesh: meshes.tachoMesh; position: meshes.tachoDisplayPosition;
         Item3D {meshNode: "bezel"; effect: allum}
@@ -53,10 +53,10 @@ Item3D {
         light: thLight
     }
 
-    Item3D {id: needleTacho; mesh: meshes.needleMesh;
-        position: meshes.tachoDisplayPosition;
-        transform: [needleTachoRotate, rotateTachoDisplay]
-    }
+//    Item3D {id: needleTacho; mesh: meshes.needleMesh;
+//        position: meshes.tachoDisplayPosition;
+//        transform: [needleTachoRotate, rotateTachoDisplay]
+//    }
 
     //--------------------Lights -------------------
     Light {id: spLight; position: Qt.vector3d( -300.0, 100.0, 150.0);
