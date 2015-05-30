@@ -1,7 +1,7 @@
 3dDashBoard
 ===========
 
-The dashboard with the 3D interface for embedding in a car.
+The spedometer dashboard with the 3D interface for embedding in a car.
 
 Before compile this project, get Qt3D repository.
 Installation instructions: http://qt-project.org/wiki/Qt3D-Installation
